@@ -1,6 +1,4 @@
 import React from 'react';
-import Tab from '../components/Tab';
-import TabList from '../components/TabList';
 
 module.exports = function childrenPropTypes(props, propName) {
   let error;
@@ -15,7 +13,7 @@ module.exports = function childrenPropTypes(props, propName) {
       return;
     }
 
-    if (child.type === TabList) {
+    if (child.type.displayName === 'TabList') {
       React.Children.forEach(child.props.children, (c) => {
         // null happens when conditionally rendering TabPanel/Tab
         // see https://github.com/rackt/react-tabs/issues/37
@@ -23,7 +21,7 @@ module.exports = function childrenPropTypes(props, propName) {
           return;
         }
 
-        if (c.type === Tab) {
+        if (c.type.displayName === 'Tab') {
           tabsCount++;
         } else {
           error = new Error(
